@@ -427,7 +427,7 @@ class StableHorde:
         # workaround for model name and hash since webui
         # uses shard.sd_model instead of local_model
         infotext = sub(
-            "Model:(.*?),", "Model: " + local_model.split(".")[0] + ",", infotext
+            "Model:(.*?),", "Model: " + local_model.split(".")[0].replace('/', '\\/').replace('\\','\\\\') + ",", infotext
         )
         infotext = sub(
             "Model hash:(.*?),", "Model hash: " + local_model_shorthash + ",", infotext
