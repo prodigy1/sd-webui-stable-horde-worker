@@ -24,6 +24,7 @@ from modules import (
     sd_models,
     sd_samplers,
 )
+import modules.scripts
 
 stable_horde_supported_models_url = (
     "https://raw.githubusercontent.com/db0/AI-Horde-image-model-reference/main/db.json"
@@ -346,8 +347,12 @@ class StableHorde:
                 mask=job.source_mask,
                 **params,
             )
+            p.scripts = modules.scripts.scripts_img2img
         else:
             p = txt2img.StableDiffusionProcessingTxt2Img(**params)
+            p.scripts = modules.scripts.scripts_txt2img
+        
+        p.script_args = []
 
         with call_queue.queue_lock:
             shared.state.begin()
